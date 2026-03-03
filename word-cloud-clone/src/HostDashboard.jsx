@@ -7,6 +7,8 @@ import * as d3 from 'd3';
 const HostDashboard = () => {
     const socket = useSocket();
     const [words, setWords] = useState({});
+    const [question, setQuestion] = useState("What's on your mind?");
+    const [inputQuestion, setInputQuestion] = useState("");
     const cloudRef = useRef(null);
     const joinUrl = `${window.location.origin}/join`;
 
@@ -16,8 +18,14 @@ const HostDashboard = () => {
         socket.on('wordUpdate', (newWords) => {
             setWords(newWords);
         });
+        socket.on('questionUpdate', (newQuestion) => {
+            setQuestion(newQuestion);
+        });
 
-        return () => socket.off('wordUpdate');
+        return () => {
+            socket.off('wordUpdate');
+            socket.off('questionUpdate');
+        };
     }, [socket]);
 
     useEffect(() => {
@@ -74,6 +82,13 @@ const HostDashboard = () => {
         if (socket) socket.emit('reset');
     };
 
+    const handleSetQuestion = () => {
+        if (socket && inputQuestion.trim()) {
+            socket.emit('setQuestion', inputQuestion);
+            setInputQuestion("");
+        }
+    };
+
     return (
         <div className="container animate-fade-in">
             <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
@@ -87,13 +102,18 @@ const HostDashboard = () => {
             </header>
 
             <div className="dashboard-layout">
-                <div className="glass word-cloud-container" ref={cloudRef}>
-                    {Object.keys(words).length === 0 && (
-                        <div style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
-                            <h2>Waiting for responses...</h2>
-                            <p>Participants can scan the QR code to submit words.</p>
-                        </div>
-                    )}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', minWidth: 0 }}>
+                    <div className="glass" style={{ padding: '1.5rem', textAlign: 'center' }}>
+                        <h2 style={{ fontSize: '2rem', margin: 0, color: 'var(--text-main)' }}>{question}</h2>
+                    </div>
+                    <div className="glass word-cloud-container" ref={cloudRef}>
+                        {Object.keys(words).length === 0 && (
+                            <div style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
+                                <h2>Waiting for responses...</h2>
+                                <p>Participants can scan the QR code to submit words.</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 <div className="side-panel">
@@ -114,6 +134,22 @@ const HostDashboard = () => {
                         <h4 style={{ marginBottom: '1rem' }}>Total Responses</h4>
                         <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#6366f1' }}>
                             {Object.values(words).reduce((a, b) => a + b, 0)}
+                        </div>
+                    </div>
+
+                    <div className="glass" style={{ padding: '1.5rem', marginTop: '1rem' }}>
+                        <h4 style={{ marginBottom: '1rem' }}>Set Question</h4>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                            <input
+                                type="text"
+                                className="input-field"
+                                placeholder="New question..."
+                                value={inputQuestion}
+                                onChange={(e) => setInputQuestion(e.target.value)}
+                            />
+                            <button className="btn btn-primary" onClick={handleSetQuestion}>
+                                Update
+                            </button>
                         </div>
                     </div>
                 </div>

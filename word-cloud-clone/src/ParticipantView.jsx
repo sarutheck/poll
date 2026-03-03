@@ -4,7 +4,18 @@ import { useSocket } from './SocketContext';
 const ParticipantView = () => {
     const [word, setWord] = useState('');
     const [submitted, setSubmitted] = useState(false);
+    const [question, setQuestion] = useState("What's on your mind?");
     const socket = useSocket();
+
+    useEffect(() => {
+        if (!socket) return;
+
+        socket.on('questionUpdate', (newQuestion) => {
+            setQuestion(newQuestion);
+        });
+
+        return () => socket.off('questionUpdate');
+    }, [socket]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,7 +30,7 @@ const ParticipantView = () => {
     return (
         <div className="mobile-container">
             <div className="glass p-8 animate-fade-in" style={{ padding: '2rem' }}>
-                <h1 style={{ textAlign: 'center', fontSize: '2rem' }}>What's on your mind?</h1>
+                <h1 style={{ textAlign: 'center', fontSize: '2rem' }}>{question}</h1>
                 <p style={{ color: 'var(--text-muted)', textAlign: 'center', marginBottom: '2rem' }}>   Submit a word to join the cloud!    </p>
 
                 <form onSubmit={handleSubmit}>

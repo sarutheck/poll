@@ -9,7 +9,9 @@ export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:3001');
+        const isLocalDev = window.location.hostname === 'localhost' && window.location.port === '5173';
+        const url = isLocalDev ? 'http://localhost:3002' : undefined;
+        const newSocket = io(url);
         setSocket(newSocket);
 
         return () => newSocket.close();
