@@ -77,10 +77,6 @@ const HostDashboard = () => {
         }
     };
 
-    const handleReset = () => {
-        if (socket) socket.emit('reset');
-    };
-
     return (
         <div className="container animate-fade-in">
             <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
@@ -88,9 +84,6 @@ const HostDashboard = () => {
                     <h1>Pollcloud https://pollcloud.onrender.com/join</h1>
                     <p style={{ color: 'var(--text-muted)' }}>by Theckyam Labs</p>
                 </div>
-                <button className="btn" style={{ background: 'rgba(255,255,255,0.05)', color: 'white' }} onClick={handleReset}>
-                    Reset Cloud
-                </button>
             </header>
 
             <div className="dashboard-layout">
@@ -130,7 +123,7 @@ const HostDashboard = () => {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 
