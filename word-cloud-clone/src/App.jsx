@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { SocketProvider } from './SocketContext'
 import HostDashboard from './HostDashboard'
 import ParticipantView from './ParticipantView'
+import SetQuestion from './SetQuestion'
 import './index.css'
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/host" element={<HostDashboard />} />
           <Route path="/join" element={<ParticipantView />} />
+          <Route path="/set" element={<SetQuestion />} />
           <Route path="/" element={<Navigate to="/host" replace />} />
         </Routes>
       </Router>

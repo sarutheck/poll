@@ -8,7 +8,6 @@ const HostDashboard = () => {
     const socket = useSocket();
     const [words, setWords] = useState({});
     const [question, setQuestion] = useState("What's on your mind?");
-    const [inputQuestion, setInputQuestion] = useState("");
     const cloudRef = useRef(null);
     const joinUrl = `${window.location.origin}/join`;
 
@@ -82,13 +81,6 @@ const HostDashboard = () => {
         if (socket) socket.emit('reset');
     };
 
-    const handleSetQuestion = () => {
-        if (socket && inputQuestion.trim()) {
-            socket.emit('setQuestion', inputQuestion);
-            setInputQuestion("");
-        }
-    };
-
     return (
         <div className="container animate-fade-in">
             <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
@@ -134,23 +126,6 @@ const HostDashboard = () => {
                         <h4 style={{ marginBottom: '1rem' }}>Total Responses</h4>
                         <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#6366f1' }}>
                             {Object.values(words).reduce((a, b) => a + b, 0)}
-                        </div>
-                    </div>
-
-                    <div className="glass" style={{ padding: '1.5rem', marginTop: '1rem' }}>
-                        <h4 style={{ marginBottom: '1rem' }}>Set Question</h4>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                            <input
-                                type="text"
-                                className="input-field"
-                                placeholder="New question..."
-                                value={inputQuestion}
-                                onChange={(e) => setInputQuestion(e.target.value)}
-                                maxLength={200}
-                            />
-                            <button className="btn btn-primary" onClick={handleSetQuestion}>
-                                Update
-                            </button>
                         </div>
                     </div>
                 </div>
