@@ -93,7 +93,7 @@ const HostDashboard = () => {
         <div className="container animate-fade-in">
             <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <div>
-                    <h1>Word Cloud Polling</h1>
+                    <h1>Pollcloud by Theckyam Labs</h1>
                     <p style={{ color: 'var(--text-muted)' }}>Real-time audience feedback</p>
                 </div>
                 <button className="btn" style={{ background: 'rgba(255,255,255,0.05)', color: 'white' }} onClick={handleReset}>
