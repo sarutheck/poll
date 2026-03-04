@@ -41,7 +41,7 @@ const ParticipantView = () => {
                         value={word}
                         onChange={(e) => setWord(e.target.value)}
                         disabled={submitted}
-                        maxLength={20}
+                        maxLength={200}
                     />
                     <button
                         type="submit"

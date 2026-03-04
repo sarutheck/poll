@@ -103,7 +103,7 @@ h1 {
 
 .dashboard-layout {
   display: grid;
-  grid-template-columns: 1fr 350px;
+  grid-template-columns: 1fr 400px;
   gap: 2rem;
   height: calc(100vh - 4rem);
 }
@@ -137,7 +137,15 @@ h1 {
   background: white;
   padding: 1rem;
   border-radius: 1rem;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.qr-code-wrapper svg {
+  max-width: 100%;
+  height: auto;
 }
 
 .animate-fade-in {
