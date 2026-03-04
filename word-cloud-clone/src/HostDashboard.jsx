@@ -120,7 +120,7 @@ const HostDashboard = () => {
                     <div className="glass qr-card">
                         <h3>Join the Poll</h3>
                         <div className="qr-code-wrapper">
-                            <QRCodeSVG value={joinUrl} size={200} />
+                            <QRCodeSVG value={joinUrl} size={400} />
                         </div>
                         <p style={{ marginTop: '1rem', color: 'var(--text-main)', fontWeight: '600' }}>
                             Scan the QR Code
