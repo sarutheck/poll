@@ -112,7 +112,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  height: 80vh;
   /* Reduced height */
   min-height: 400px;
   position: relative;
