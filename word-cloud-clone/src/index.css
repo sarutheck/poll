@@ -57,7 +57,8 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1600px;
+  /* Increased to allow wider wordcloud */
   margin: 0 auto;
   padding: 2rem;
   width: 100%;
@@ -105,14 +106,15 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 400px;
   gap: 2rem;
-  height: calc(100vh - 4rem);
 }
 
 .word-cloud-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
+  height: 50vh;
+  /* Reduced height */
+  min-height: 400px;
   position: relative;
   overflow: hidden;
 }
